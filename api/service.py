@@ -58,7 +58,7 @@ def transcribe(
     print(diarize_segments)
     print('segments are now assigned speaker IDs:')
     print(result["segments"])  # segments are now assigned speaker IDs
-
+    return result
 
 def load_audio(file: BinaryIO, sr: int = SAMPLE_RATE):
     """

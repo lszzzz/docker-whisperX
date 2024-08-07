@@ -67,7 +67,7 @@ async def asr(
     compute_type: Annotated[str, Form()],
     file: Annotated[UploadFile, File()],
 ):
-    transcribe(
+    return transcribe(
         model,
         compute_type,
         None,
@@ -75,4 +75,3 @@ async def asr(
         None,
         file.file,
     )
-    return None
