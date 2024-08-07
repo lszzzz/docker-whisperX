@@ -1,6 +1,6 @@
 FROM ghcr.io/jim60105/whisperx:no_model
 
-RUN pip install fastapi "uvicorn[standard]"
+RUN pip install fastapi "uvicorn[standard]" ffmpeg-python
 
 USER root
 RUN apt-get update && apt-get install -y lsof  \
