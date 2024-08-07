@@ -1,6 +1,8 @@
 FROM ghcr.io/jim60105/whisperx:no_model
 
-RUN pip install fastapi "uvicorn[standard]" ffmpeg-python
+RUN pip install fastapi "uvicorn[standard]" ffmpeg-python python-multipart
+
+RUN mkdir $HOME/whisperx_api_log
 
 #USER root
 #RUN apt-get update && apt-get install -y lsof  \
