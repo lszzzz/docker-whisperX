@@ -21,7 +21,7 @@ formatter = logging.Formatter(
 ch.setFormatter(formatter)
 fh.setFormatter(formatter)
 logger.addHandler(ch) #将日志输出至屏幕
-logger.addHandler(fh) #将日志输出至文件
+#logger.addHandler(fh) #将日志输出至文件
 
 logger = logging.getLogger(__name__)
 
