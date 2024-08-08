@@ -13,13 +13,13 @@ logger = logging.getLogger()
 logger.setLevel(logging.INFO)
 ch = logging.StreamHandler()
 
-fh = logging.handlers.RotatingFileHandler(os.getenv('HOME') + "/whisperx_api_log/api.log", mode="a", maxBytes=10 * 1024 * 1024, backupCount=10)
+#fh = logging.handlers.RotatingFileHandler(os.getenv('HOME') + "/whisperx_api_log/api.log", mode="a", maxBytes=10 * 1024 * 1024, backupCount=10)
 formatter = logging.Formatter(
     "%(asctime)s - %(thread)d - %(module)s - %(funcName)s - line:%(lineno)d - %(levelname)s - %(message)s"
 )
 
 ch.setFormatter(formatter)
-fh.setFormatter(formatter)
+#fh.setFormatter(formatter)
 logger.addHandler(ch) #将日志输出至屏幕
 #logger.addHandler(fh) #将日志输出至文件
 
