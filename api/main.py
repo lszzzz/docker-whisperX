@@ -67,12 +67,17 @@ async def asr(
     model: Annotated[str, Form()],
     compute_type: Annotated[str, Form()],
     file: Annotated[UploadFile, File()],
+    language: Annotated[str, Form()] = None,
+    align_model: Annotated[str, Form()] = None,
+    initial_prompt: Annotated[str, Form()] = None,
 ):
+    if language:
+        logger.info('language is not empty')
     return transcribe(
         model,
         compute_type,
-        None,
-        None,
-        None,
+        language,
+        align_model,
+        initial_prompt,
         file.file,
     )

@@ -30,12 +30,27 @@ def test_post():
     connection.close()
 
 
-def test_post_file():
+def test_post_file_zh():
     url = 'http://localhost:7010/asr'
-    files = {'file': open('/Users/samlee/Documents/sample/asr/en/cv-corpus-18.0-delta-2024-06-14/en/clips/common_voice_en_40187648.mp3', 'rb')}
+    files = {'file': open('/Users/samlee/Documents/sample/asr/cn/vad_example.wav', 'rb')}
     values = {
-        'model': 'small',
+        'model': 'large-v3',
         'compute_type': 'int8',
+        'language': 'zh',
+        'initial_prompt': '该转录涉学卡的活动机会，通过报名畅学卡后面可以参加专门的活动降低试错成本'
+    }
+    response = requests.post(url, files=files, data=values)
+    print(response.json())
+
+
+def test_post_file_yue():
+    url = 'http://localhost:7010/asr'
+    files = {'file': open('/Users/samlee/Documents/sample/asr/yue/SAMPLE01_S001.wav', 'rb')}
+    values = {
+        'model': 'large-v3',
+        'compute_type': 'int8',
+        'language': 'yue',
+        'align_model': 'CAiRE/wav2vec2-large-xlsr-53-cantonese'
     }
     response = requests.post(url, files=files, data=values)
     print(response.json())
