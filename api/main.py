@@ -66,13 +66,12 @@ def read_root():
 async def asr(
     model: Annotated[str, Form()],
     file: Annotated[UploadFile, File()],
-    compute_type: Annotated[str, Form()] = "float16",   #"float16":GPU; "int8":if low on GPU mem (may reduce accuracy)
+    compute_type: Annotated[str, Form()] = "float16",   # "float16":GPU; "int8":if low on GPU mem (may reduce accuracy)
     language: Annotated[str, Form()] = None,
     align_model: Annotated[str, Form()] = None,
     initial_prompt: Annotated[str, Form()] = None,
+    device: Annotated[str, Form()] = "cuda",    # "cuda":GPU, "cpu":if low on GPU mem
 ):
-    if language:
-        logger.info('language is not empty')
     return transcribe(
         model,
         compute_type,
@@ -80,4 +79,5 @@ async def asr(
         align_model,
         initial_prompt,
         file.file,
+        device,
     )

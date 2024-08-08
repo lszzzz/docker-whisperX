@@ -30,6 +30,18 @@ def test_post():
     connection.close()
 
 
+def test_post_file_en():
+    url = 'http://localhost:7010/asr'
+    files = {'file': open('/Users/samlee/Documents/sample/asr/en/cv-corpus-18.0-delta-2024-06-14/en/clips/common_voice_en_40187648.mp3', 'rb')}
+    values = {
+        'model': 'small',
+        'compute_type': 'int8',
+        'device': 'cpu'
+    }
+    response = requests.post(url, files=files, data=values)
+    print(response.json())
+
+
 def test_post_file_zh():
     url = 'http://localhost:7010/asr'
     files = {'file': open('/Users/samlee/Documents/sample/asr/cn/vad_example.wav', 'rb')}
@@ -37,7 +49,8 @@ def test_post_file_zh():
         'model': 'large-v3',
         'compute_type': 'int8',
         'language': 'zh',
-        'initial_prompt': '该转录涉学卡的活动机会，通过报名畅学卡后面可以参加专门的活动降低试错成本'
+        'initial_prompt': '该转录涉学卡的活动机会，通过报名畅学卡后面可以参加专门的活动降低试错成本',
+        'device': 'cpu'
     }
     response = requests.post(url, files=files, data=values)
     print(response.json())
@@ -50,7 +63,8 @@ def test_post_file_yue():
         'model': 'large-v3',
         'compute_type': 'int8',
         'language': 'yue',
-        'align_model': 'CAiRE/wav2vec2-large-xlsr-53-cantonese'
+        'align_model': 'CAiRE/wav2vec2-large-xlsr-53-cantonese',
+        'device': 'cpu'
     }
     response = requests.post(url, files=files, data=values)
     print(response.json())

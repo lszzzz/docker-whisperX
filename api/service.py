@@ -16,9 +16,8 @@ def transcribe(
         align_model: str,
         initial_prompt: str,
         file: BinaryIO,
+        device: str,
         ):
-    # device = "cuda"
-    device = "cpu"
     batch_size = 16  # reduce if low on GPU mem
 
     # 1. Transcribe with original whisper (batched)
