@@ -90,3 +90,21 @@ def test_post_file_en_21():
     }
     response = requests.post(url, files=files, data=values)
     print(response.json())
+
+def test_post_file_mix_21():
+    url = 'http://218.78.212.21:6000/asr'
+    files = {'file': open('/Users/samlee/Documents/sample/asr/yue_en/Hong_Kong_Connection_The_New_Era_of_AI.mp3', 'rb')}
+    values = {
+        'model_path': '/.cache/huggingface/hub/models--blackmount8--faster-whisper-small-mce/snapshots/0d5a0134b281d218d61d969050e4aa1bafe9db9e',
+    }
+    response = requests.post(url, files=files, data=values)
+    print(response.json())
+
+def test_post_file_en_medium_21():
+    url = 'http://218.78.212.21:6000/asr'
+    files = {'file': open('/Users/samlee/Documents/sample/asr/en/cv-corpus-18.0-delta-2024-06-14/en/clips/common_voice_en_40187648.mp3', 'rb')}
+    values = {
+        'model_path': '/.cache/huggingface/hub/models--Systran--faster-whisper-medium/snapshots/08e178d48790749d25932bbc082711ddcfdfbc4f',
+    }
+    response = requests.post(url, files=files, data=values)
+    print(response.json())
