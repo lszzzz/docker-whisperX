@@ -19,10 +19,7 @@ def transcribe(
         ):
     # device = "cuda"
     device = "cpu"
-    #audio_file = "/Users/samlee/Documents/sample/asr/en/英语专业四级听力计划/1.mp3"
     batch_size = 16  # reduce if low on GPU mem
-    # compute_type = "float16" # change to "int8" if low on GPU mem (may reduce accuracy)
-    # compute_type = "int8"
 
     # 1. Transcribe with original whisper (batched)
     asr_options = {
@@ -30,10 +27,6 @@ def transcribe(
     }
     model = whisperx.load_model(model, device=device, compute_type=compute_type, language=language,
                                 asr_options=asr_options)
-
-    # save model to local path (optional)
-    # model_dir = "/path/"
-    # model = whisperx.load_model("large-v2", device, compute_type=compute_type, download_root=model_dir)
 
     audio = load_audio(file)
     result = model.transcribe(audio, batch_size=batch_size)

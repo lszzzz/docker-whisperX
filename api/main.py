@@ -65,8 +65,8 @@ def read_root():
 @app.post("/asr")
 async def asr(
     model: Annotated[str, Form()],
-    compute_type: Annotated[str, Form()],
     file: Annotated[UploadFile, File()],
+    compute_type: Annotated[str, Form()] = "float16",   #"float16":GPU; "int8":if low on GPU mem (may reduce accuracy)
     language: Annotated[str, Form()] = None,
     align_model: Annotated[str, Form()] = None,
     initial_prompt: Annotated[str, Form()] = None,
