@@ -26,15 +26,6 @@ logger.addHandler(ch) #将日志输出至屏幕
 logger = logging.getLogger(__name__)
 
 
-class AsrParam(BaseModel):
-    model: str | None = "small"
-    compute_type: str | None = "float16"
-    language: str | None = None
-    align_model: str | None = None
-    initial_prompt: Union[str, None] = Query(default=None)
-    audio_file: UploadFile = File(...)
-
-
 app = FastAPI(
     title='whisperX service',
     description='whisperX service',
@@ -64,7 +55,7 @@ def read_root():
 
 @app.post("/asr")
 async def asr(
-    model: Annotated[str, Form()],
+    model_path: Annotated[str, Form()],
     file: Annotated[UploadFile, File()],
     compute_type: Annotated[str, Form()] = "float16",   # "float16":GPU; "int8":if low on GPU mem (may reduce accuracy)
     language: Annotated[str, Form()] = None,
@@ -73,7 +64,7 @@ async def asr(
     device: Annotated[str, Form()] = "cuda",    # "cuda":GPU, "cpu":if low on GPU mem
 ):
     return transcribe(
-        model,
+        model_path,
         compute_type,
         language,
         align_model,

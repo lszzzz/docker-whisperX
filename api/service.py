@@ -10,7 +10,7 @@ logger = logging.getLogger(__name__)
 
 
 def transcribe(
-        model: str,
+        model_path: str,
         compute_type: str,
         language: str,
         align_model: str,
@@ -24,7 +24,7 @@ def transcribe(
     asr_options = {
         "initial_prompt": initial_prompt,
     }
-    model = whisperx.load_model(model, device=device, compute_type=compute_type, language=language,
+    model = whisperx.load_model(model_path, device=device, compute_type=compute_type, language=language,
                                 asr_options=asr_options)
 
     audio = load_audio(file)

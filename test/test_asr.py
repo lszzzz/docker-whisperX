@@ -34,7 +34,7 @@ def test_post_file_en():
     url = 'http://localhost:7010/asr'
     files = {'file': open('/Users/samlee/Documents/sample/asr/en/cv-corpus-18.0-delta-2024-06-14/en/clips/common_voice_en_40187648.mp3', 'rb')}
     values = {
-        'model': 'small',
+        'model_path': '/Users/samlee/.cache/huggingface/hub/models--Systran--faster-whisper-small/snapshots/536b0662742c02347bc0e980a01041f333bce120',
         'compute_type': 'int8',
         'device': 'cpu'
     }
@@ -65,6 +65,28 @@ def test_post_file_yue():
         'language': 'yue',
         'align_model': 'CAiRE/wav2vec2-large-xlsr-53-cantonese',
         'device': 'cpu'
+    }
+    response = requests.post(url, files=files, data=values)
+    print(response.json())
+
+
+def test_post_file_yue_21():
+    url = 'http://218.78.212.21:6000/asr'
+    files = {'file': open('/Users/samlee/Documents/sample/asr/yue/SAMPLE01_S001.wav', 'rb')}
+    values = {
+        'model': 'large-v3',
+        'language': 'yue',
+        'align_model': 'CAiRE/wav2vec2-large-xlsr-53-cantonese',
+    }
+    response = requests.post(url, files=files, data=values)
+    print(response.json())
+
+
+def test_post_file_en_21():
+    url = 'http://218.78.212.21:6000/asr'
+    files = {'file': open('/Users/samlee/Documents/sample/asr/en/cv-corpus-18.0-delta-2024-06-14/en/clips/common_voice_en_40187648.mp3', 'rb')}
+    values = {
+        'model': 'small',
     }
     response = requests.post(url, files=files, data=values)
     print(response.json())
