@@ -3,6 +3,7 @@ import numpy as np
 import ffmpeg
 from typing import BinaryIO
 import logging
+import os
 
 SAMPLE_RATE = 16000
 
@@ -46,7 +47,8 @@ def transcribe(
     # import gc; gc.collect(); torch.cuda.empty_cache(); del model_a
 
     # 3. Assign speaker labels
-    diarize_model = whisperx.DiarizationPipeline(use_auth_token='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', device=device)
+    diarize_model_path = os.getenv("DIARIZE_MODEL_PATH")
+    diarize_model = whisperx.DiarizationPipeline(model_name=diarize_model_path, device=device)
 
     # add min/max number of speakers if known
     diarize_segments = diarize_model(audio)

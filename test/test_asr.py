@@ -86,7 +86,7 @@ def test_post_file_en_21():
     url = 'http://218.78.212.21:6000/asr'
     files = {'file': open('/Users/samlee/Documents/sample/asr/en/cv-corpus-18.0-delta-2024-06-14/en/clips/common_voice_en_40187648.mp3', 'rb')}
     values = {
-        'model': 'small',
+        'model_path': '/.cache/huggingface/hub/models--Systran--faster-whisper-small/snapshots/536b0662742c02347bc0e980a01041f333bce120',
     }
     response = requests.post(url, files=files, data=values)
     print(response.json())
