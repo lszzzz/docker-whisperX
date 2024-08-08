@@ -4,11 +4,12 @@ RUN pip install fastapi "uvicorn[standard]" ffmpeg-python python-multipart
 
 RUN mkdir $HOME/whisperx_api_log
 
-#USER root
 #RUN apt-get update && apt-get install -y lsof  \
 #    && apt-get install -y curl && apt-get install -y procps
 #USER 1001
 
 COPY api /app
+
+USER root
 
 ENTRYPOINT ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "6000", "--app-dir", "/app"]
