@@ -74,9 +74,9 @@ def test_post_file_yue_21():
     url = 'http://218.78.212.21:6000/asr'
     files = {'file': open('/Users/samlee/Documents/sample/asr/yue/SAMPLE01_S001.wav', 'rb')}
     values = {
-        'model': 'large-v3',
+        'model_path': '/.cache/huggingface/hub/models--Systran--faster-whisper-large-v3/snapshots/edaa852ec7e145841d8ffdb056a99866b5f0a478',
         'language': 'yue',
-        'align_model': 'CAiRE/wav2vec2-large-xlsr-53-cantonese',
+        'align_model': '/.cache/huggingface/hub/models--CAiRE--wav2vec2-large-xlsr-53-cantonese/snapshots/51ba4640ddbfae517e6255b6b50a210f9cebadd7',
     }
     response = requests.post(url, files=files, data=values)
     print(response.json())
