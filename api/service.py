@@ -4,6 +4,7 @@ import ffmpeg
 from typing import BinaryIO
 import logging
 import os
+import json
 
 SAMPLE_RATE = 16000
 
@@ -18,6 +19,7 @@ def transcribe(
         initial_prompt: str,
         file: BinaryIO,
         device: str,
+        identify_speaker: bool,
         ):
     batch_size = 16  # reduce if low on GPU mem
 
@@ -31,7 +33,7 @@ def transcribe(
     audio = load_audio(file)
     result = model.transcribe(audio, batch_size=batch_size)
     logger.info('before alignment:')
-    logger.info(result["segments"])  # before alignment
+    logger.info(json.dumps(result, indent=4))  # before alignment
 
     # delete model if low on GPU resources
     # import gc; gc.collect(); torch.cuda.empty_cache(); del model
@@ -41,7 +43,9 @@ def transcribe(
                                                   device=device, model_name=align_model)
     result = whisperx.align(result["segments"], model_a, metadata, audio, device, return_char_alignments=False)
     logger.info('after alignment:')
-    logger.info(result["segments"])  # after alignment
+    logger.info(json.dumps(result, indent=4))  # after alignment
+    if not identify_speaker:
+        return result
 
     # delete model if low on GPU resources
     # import gc; gc.collect(); torch.cuda.empty_cache(); del model_a
@@ -53,12 +57,12 @@ def transcribe(
     # add min/max number of speakers if known
     diarize_segments = diarize_model(audio)
     # diarize_model(audio, min_speakers=min_speakers, max_speakers=max_speakers)
-
-    result = whisperx.assign_word_speakers(diarize_segments, result)
     logger.info('diarize_segments:')
     logger.info(diarize_segments)
+
+    result = whisperx.assign_word_speakers(diarize_segments, result)
     logger.info('segments are now assigned speaker IDs:')
-    logger.info(result["segments"])  # segments are now assigned speaker IDs
+    logger.info(json.dumps(result, indent=4))  # segments are now assigned speaker IDs
     return result
 
 

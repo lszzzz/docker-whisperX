@@ -62,6 +62,7 @@ async def asr(
     align_model: Annotated[str, Form()] = None,
     initial_prompt: Annotated[str, Form()] = None,
     device: Annotated[str, Form()] = "cuda",    # "cuda":GPU, "cpu":if low on GPU mem
+    identify_speaker: Annotated[bool, Form()] = False,
 ):
     return transcribe(
         model_path,
@@ -71,4 +72,5 @@ async def asr(
         initial_prompt,
         file.file,
         device,
+        identify_speaker,
     )
