@@ -10,6 +10,6 @@ RUN mkdir $HOME/whisperx_api_log
 
 COPY api /app
 
-#USER root
+USER root
 
 ENTRYPOINT ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "6000", "--app-dir", "/app"]
